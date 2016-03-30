@@ -6,19 +6,55 @@
 
 using namespace std;
 
+class Coord{
+public:
+	char piece[3][3];
+	bool coords[3][3];
+private:
+	Coord();
+	bool getCoord(){return coords;};
+	void setCoord(char,char,int);
+};
+Coord::Coord()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int x = 0; x < 3; ++x)
+		{
+			coords[i][x] = 0;
+			piece[i][x] = '/';
+		}
+	}
+}
+
+void Coord::setCoord(char p, char c, int i)
+{
+	int x = NULL;
+	if(c == 'a' || c == 'A')
+	{
+		x = 0;
+	}else if(c == 'b' || c == 'B')
+	{
+		x = 1;
+	}else if (c == 'c' || c == 'C')
+	{
+		x = 2;
+	}
+
+	coords[x][i] = 1;
+}
+
 bool coordValid(char c, int i)
 {
-	if(c != 'a' || c != 'A' || c != 'b' || c!= 'B' || c!= 'c' || c != 'C')
-		{
+	if(c != 'a' && c != 'A' && c != 'b' && c!= 'B' && c!= 'c' && c != 'C')
+	{
 			cout << "Incorrect Letter!" << endl;
 			return true;
-		}
-	else if(i != 2 || i != 2 || i != 3)
+	}else if(i != 2 && i != 2 && i != 3)
 	{
 		cout << "Incorrect Number!" << endl;
 		return true;
-	}
-	else 
+	}else 
 		return false;
 }
 bool coordCheck(char c, int i, bool coordinates[3][3])
@@ -43,13 +79,10 @@ bool coordCheck(char c, int i, bool coordinates[3][3])
 			break;
 	}
 	i--;
-	switch(i)
-
 	if(coordinates[let][i] == 1)
 	{
 		return true;
-	}
-	else
+	}else
 		return false;
 }
 void instruct()
@@ -89,16 +122,13 @@ int main()
 					if(cnt == 0)
 					{
 						cout << "A  |";
-					}
-					else if(cnt == 1)
+					}else if(cnt == 1)
 					{
 						cout << "B  |";
-					}
-					else if(cnt == 2)
+					}else if(cnt == 2)
 					{
 						cout << "C  |";
-					}
-					else
+					}else
 						cout << "Error in cnt IF loop" << endl;
 				}
 			if (board[cnt][cntT]=='x'||board[cnt][cntT]=='o')
@@ -106,33 +136,27 @@ int main()
 				if(cntT < 2)
 				{
 					cout << board[cnt][cntT] << "  ";
-				}
-				else
+				}else
 					cout << board[cnt][cntT];
 			}
 			else
 				if(cntT < 2)
 				{
 					cout << "_  ";	
-				}
-				else
+				}else
 					cout << "_";
-				
 		}
 		cout << "|" << endl << "\t";
 	}
-	cout << endl 
-		 << "Please input coordinates. (letter, number): ";
-	char let;
 	bool coord[3][3] = {0,0,0,0,0,0,0,0,0};
-	int num;
+	cout << endl << "Please input coordinates. (letter, number): ";
+	char let; int num;
 	do{
 		cin >> let;
 		cin >> num;
 	}
 	//Contintues while the function return true values
 	while(coordValid(let,num) && coordCheck(let, num, coord));
-
 
 	cout << endl << "You input: " << let << num << endl;
 
